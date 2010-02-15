@@ -31,8 +31,7 @@ class Feed_Controller extends Controller
 		}
 		
 		// Set actionable flag
-		$actionable = 0;
-		if(isset($_GET['actionable'])) $actionable = 1;
+		$actionable = isset($_GET['actionable']) ? 1 : 0;
 		
 		// How Many Items Should We Retrieve?
 		$limit = ( isset($_GET['l']) && !empty($_GET['l'])
@@ -46,33 +45,51 @@ class Feed_Controller extends Controller
 		$page_position = ( $page == 1 ) ? 0 : 
 			( $page * $limit ) ; // Query position
 			
-		$search = '';
-		if(isset($_GET['search']) && !empty($_GET['search'])) $search = $_GET['search'];
+		//What category should we display
+		$category = ( isset($_GET['c']) && !empty($_GET['c']) ) ? $_GET['c'] : NULL;
+		
+		
+		$search = (isset($_GET['search']) && !empty($_GET['search'])) ? $_GET['search'] : '';
+		
 		$search_for_cache = str_replace(' ','_',$search);
+		
+		
 		
 		$site_url = url::base();
 			
 		// Cache the Feed
 		$cache = Cache::instance();
-		$feed_items = $cache->get('feed_'.$limit.'_'.$page.'_'.$actionable.'_'.$search_for_cache);
-		if ($feed_items == NULL)
-		{ // Cache is Empty so Re-Cache
-			if($actionable == 1){
-				$incidents = ORM::factory('incident')
-								->where('incident_active', '1')
-								->where('incident_actionable', '1')
-								->like('incident_description',$search)
-								->orderby('incident_date', 'desc')
-								->limit($limit, $page_position)->find_all();
-			}else{
-				$incidents = ORM::factory('incident')
-								->where('incident_active', '1')
-								->like('incident_description',$search)
-								->orderby('incident_date', 'desc')
-								->limit($limit, $page_position)->find_all();
-			}
-			$items = array();
+		$feed_items = $cache->get('feed_'.$limit.'_'.$category.'_'.$page.'_'.$actionable.'_'.$search_for_cache);
+		
+		if ($feed_items == NULL){ // Cache is Empty so Re-Cache
 			
+			//Initialize $incident collection with additional properites
+			$incident_collection = ORM::factory('incident')
+									->select('DISTINCT incident.*')
+									->join('incident_category','incident_category.incident_id','incident.id','LEFT OUTER')
+									->join('category','category.id','incident_category.category_id','LEFT OUTER');
+			
+													
+			//Set the actionable filter
+			if($actionable == 1)
+				$incident_collection->where('incident_actionable', '1');
+			
+			
+			
+			//Set category filter.
+			if($category !== NULL)
+				$incident_collection->like('category.category_title', $category);
+			
+			
+			//Finally execute the statement
+			$incidents = $incident_collection
+						->like('incident_description',$search)
+						->orderby('incident_date', 'desc')
+						->where('incident_active', '1')
+						->limit($limit,$page_position)->find_all();
+			
+			//Initialize Items array
+			$items = array();
 			foreach($incidents as $incident)
 			{
 				$item = array();
@@ -103,7 +120,7 @@ class Feed_Controller extends Controller
 			$cache_time = 3600; // 1 hour
 			if($actionable == 1) $cache_time = 30; // 30 seconds (This is critical stuff!)
 			
-			$cache->set('feed_'.$limit.'_'.$page.'_'.$actionable.'_'.$search_for_cache, $items, array('feed'), $cache_time);
+			$cache->set('feed_'.$limit.'_'.$category.'_'.$page.'_'.$actionable.'_'.$search_for_cache, $items, array('feed'), $cache_time);
 			$feed_items = $items;
 		}
 		
