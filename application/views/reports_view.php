@@ -18,19 +18,10 @@
 						<!-- start incident block -->
 						<div class="reports">
 							<div class="report-details">
-								<div class="verified <?php
-								if ($incident_verified == 1)
-								{
-									echo " verified_yes";
-								}
-								?>">
-									Verified<br/>
-									<?php
-									echo ($incident_verified == 1) ?
-										"<span>YES</span>" :
-										"<span>NO</span>";
-									?>
-								</div>
+								<?php if($incident_verified == 1){ //if event is verified ?>
+								<div class="verified verified_yes">Verified<br /><span>YES</span></div>
+								<?php } ?>
+								
 								<h1><?php
 								echo $incident_title;
 								
