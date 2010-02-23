@@ -73,7 +73,7 @@ Author Email: david@ushahidi.com
 /* Announcements */
 
 	/* Shortcode */
-	#shortcode-header-wrap { width:100%; background:#FFF9D8; padding:9px; border:1px solid #ffed8d; }
+	#shortcode-header-wrap { background:#FFF9D8; padding:9px; border:1px solid #ffed8d; }
 	#shortcode-header-info { width:960px; margin:0 auto; padding:0 0 3px 18px; background:transparent url(icons.png) 0 -97px no-repeat; }
 	#shortcode-header-info span { padding:5px; background:#fff; font-weight:bold; color:#F00; }
 	
