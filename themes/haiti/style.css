@@ -9,7 +9,7 @@ Author Email: david@ushahidi.com
 
 /* header background */
 	body#page{
-		background: #585858 url(bkg.gif) repeat-x;
+		background: #585858 url(bkg_new.gif) repeat-x;
 		background-position:0px 33px;
 		overflow-x:hidden;
 	}
@@ -21,8 +21,7 @@ Author Email: david@ushahidi.com
 /* Logo Box */
 	div#logo{
 		background-color:transparent;
-		padding-top:5px;
-		padding-bottom:0;
+		padding:5px 0 0 0;
 		height:50px;
 	}
 	div#logo h1{
@@ -30,11 +29,13 @@ Author Email: david@ushahidi.com
 		font-size:36px;
 	}
 	div#logo span{
-		color:#eee;
+		color:#eee; font-size:12px; position:relative;
 	}
+		span.tufts { display:block; margin:35px 0 0 0; }
+		#tufts-logo { position:absolute; left:107px; top:-7px; }
+		div.additional-content { overflow:auto; padding:10px 15px; }
 
-	div.additional-content { overflow:auto; padding:10px 15px; }
-
+.hide { display:none; }
 
 /* Submit Button */
 	div.submit-incident{ margin:0; position:absolute; right:0; top:79px; }
@@ -76,7 +77,7 @@ Author Email: david@ushahidi.com
 	#shortcode-header-info { width:960px; margin:0 auto; padding:0 0 3px 18px; background:transparent url(icons.png) 0 -97px no-repeat; }
 	#shortcode-header-info span { padding:5px; background:#fff; font-weight:bold; color:#F00; }
 	
-	#announcement-box { position:absolute; top:61px; left:490px; }
+	#announcement-box { position:absolute; top:61px; left:216px; }
 	
 	/* Generic */
 	.announcement { background:#FFF9D8; padding:10px; margin:0 18px 10px 0; border:1px solid #ffed8d; float:left; width:236px;   }
@@ -89,7 +90,7 @@ Author Email: david@ushahidi.com
 		#diaspora-info h3 { background:transparent url(icons.png) 0 -236px no-repeat; }
 		
 		/* Clickatel */
-		#clickatel-info { width:247px; margin-right:0; display:none; }
+		#clickatel-info { width:247px; margin-right:0; }
 		#clickatel-info h3 { }
 		.announcement p { }
 

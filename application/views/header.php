@@ -100,7 +100,7 @@
 	?>
 
 	<!--[if IE 6]>
-	<script type="text/javascript" src="js/ie6pngfix.js"></script>
+	<script type="text/javascript" src="<?php url::base()?>media/js/ie6pngfix.js"></script>
 	<script type="text/javascript">DD_belatedPNG.fix('img, ul, ol, li, div, p, a');</script>
 	<![endif]-->
 	<script type="text/javascript">
@@ -223,7 +223,8 @@
 			<!-- logo -->
 			<div id="logo">
 				<h1><?php echo $site_name; ?></h1>
-				<span><?php echo $site_tagline; ?></span>
+				<span><?php echo $site_tagline; ?></span><br />
+                <span class="tufts">Ushahidi-Haiti&nbsp;&nbsp;&nbsp;@ <img id="tufts-logo" src="<?php echo url::base()?>themes/haiti/tufts-logo.png" /></span>
 			</div>
 			<!-- / logo -->
 		
@@ -243,7 +244,7 @@
                 
                 <div  class="announcement" id="clickatel-info">
                     <h3>Announcement</h3>
-                    <p>Clickatell has donated free messaging through the remainder of January. <a href="http://www.clickatell.com/press/press_article.php/154">Read More &raquo;</a></p>
+                    <p><a href="http://haiti.buildingmarkets.org/">Peace Dividend Marketplace</a> can link you with goods and services in PAP: call 29 41 10 01</p>
                 </div>
             </div>
             <!-- / announcement Box -->
