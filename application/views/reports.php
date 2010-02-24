@@ -37,7 +37,7 @@
 									<strong>LOCATION</strong>
 								</div>
 								<div class="report_col5">
-									<strong>VERIFIED?</strong>
+									<strong>Report Mode</strong>
 								</div>
 							</div>
 							<?php
@@ -52,22 +52,11 @@
 									$incident_description = text::limit_chars($incident_description, 150, "...", true);
 									$incident_date = date('Y-m-d', strtotime($incident->incident_date));
 									$incident_location = $incident->location_name;
-									$incident_verified = $incident->incident_verified;
-									if ($incident_verified)
-									{
-										$incident_verified = "<span class=\"report_yes\">YES</span>";
-									}
-									else
-									{
-										$incident_verified = "<span class=\"report_no\">NO</span>";
-									}
+									
 												
 									echo "<div class=\"report_row1\">";
 									echo "	<div class=\"report_thumb report_col1\">";
-									echo "			&nbsp;";
-									if(isset($media_icons[$incident_id])){
-										echo $media_icons[$incident_id];
-									}
+									echo (isset($media_icons[$incident_id])) ? "<ul title='media sources' class='report_media'>$media_icons[$incident_id]</ul>" : "&nbsp;";
 									echo "		</div>";
 									echo "		<div class=\"report_details report_col2\">";
 									echo "			<h3><a href=\"" . url::base() . "reports/view/" . $incident_id . "\">" . $incident_title . "</a></h3>";
@@ -79,8 +68,8 @@
 									echo "		<div class=\"report_location report_col4\">";
 									echo $incident_location;
 									echo "		</div>";
-									echo "		<div class=\"report_status report_col5\">";
-									echo $incident_verified;
+									echo "		<div class=\"report_mode report_col5\">";
+									echo (isset($incident_mode[$incident_id])) ? $incident_mode[$incident_id] : "";
 									echo "		</div>";
 									echo "</div>";
 								}
