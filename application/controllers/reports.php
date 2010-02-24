@@ -98,17 +98,30 @@ class Reports_Controller extends Main_Controller {
 			$this->template->content->pagination_stats = '('.$pagination->total_items.' report'.$plural.')';
 		}
 		
-		$icon_html = array();
-		$icon_html[1] = "<img src=\"".url::base()."media/img/image.png\">"; //image
-		$icon_html[2] = "<img src=\"".url::base()."media/img/video.png\">"; //video
-		$icon_html[3] = ""; //audio
-		$icon_html[4] = ""; //news
-		$icon_html[5] = ""; //podcast
+		//Declare icon_type array
+		$icon_type = array();
+		$icon_type[1] = "image"; 	//image
+		$icon_type[2] = "video"; 	//video
+		$icon_type[3] = "audio"; 	//audio
+		$icon_type[4] = "news"; 	//news
+		$icon_type[5] = "podcast"; 	//podcast
+		
+		// Declare incident mode array
+		$incident_mode = array();
+		$incident_mode[1] = "Web"; 		//Web
+		$incident_mode[2] = "Sms"; 		//Sms
+		$incident_mode[3] = "Email"; 	//Email
+		$incident_mode[4] = "Twitter"; 	//Twitter
+		
 		
 		//Populate media icon array
 		$this->template->content->media_icons = array();
+		$this->template->content->incident_mode = array();
+		
 		foreach($incidents as $incident) {
 			$incident_id = $incident->id;
+			
+			$this->template->content->incident_mode[$incident->id] = $incident_mode[$incident->incident_mode];
 			if(ORM::factory('media')
                ->where('incident_id', $incident_id)->count_all() > 0) {
 				$medias = ORM::factory('media')
@@ -118,8 +131,12 @@ class Reports_Controller extends Main_Controller {
 				$tmp = $this->template->content->media_icons;
 				$tmp[$incident_id] = '';
 				
+				//Build the media_icons array also adding anchor to link to media_link
+				//If the media type is an image. Append the /media/uploads/ path.
 				foreach($medias as $media) {
-					$tmp[$incident_id] .= $icon_html[$media->media_type];
+					$tmp[$incident_id] .= "<li class='".$icon_type[$media->media_type]."'>
+					<a href='".(($icon_type[$media->media_type]==='image') ? '/media/uploads/' : ''). $media->media_link."' title='".$icon_type[$media->media_type]."' target='_blank'></a>
+					</li>";
 					$this->template->content->media_icons = $tmp;
 				}
 			}
