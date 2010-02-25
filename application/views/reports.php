@@ -37,7 +37,7 @@
 									<strong>LOCATION</strong>
 								</div>
 								<div class="report_col5">
-									<strong>Report Mode</strong>
+									<strong>Report via</strong>
 								</div>
 							</div>
 							<?php
