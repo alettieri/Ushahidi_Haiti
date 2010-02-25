@@ -121,7 +121,13 @@ class Reports_Controller extends Main_Controller {
 		foreach($incidents as $incident) {
 			$incident_id = $incident->id;
 			
-			$this->template->content->incident_mode[$incident->id] = $incident_mode[$incident->incident_mode];
+			//Set the incident mode to SMS if it contians a custom phone.
+			if($incident->incident_custom_phone !== ''){
+				$this->template->content->incident_mode[$incident->id] = $incident_mode[2];
+			}else{
+				$this->template->content->incident_mode[$incident->id] = $incident_mode[$incident->incident_mode];
+			}
+			
 			if(ORM::factory('media')
                ->where('incident_id', $incident_id)->count_all() > 0) {
 				$medias = ORM::factory('media')
