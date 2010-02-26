@@ -18,7 +18,6 @@ class Settings_Model extends ORM
 {	
 	// Database table name
 	protected $table_name = 'settings';
-	
 	// Prevents cached items from being reloaded
 	protected $reload_on_wakeup   = FALSE;
 }
