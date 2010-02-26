@@ -1379,6 +1379,8 @@ a.show-more {
 	border-bottom:2px #000 solid;
 	overflow:auto;
 }
+.report_rowtitle{text-transform: uppercase}
+
 .report_col1,
 .report_col2,
 .report_col3,
@@ -1426,6 +1428,7 @@ a.show-more {
 	line-height: 22px;
 	padding-left: 5px;
 }
+.report_mode{text-transform: uppercase}
 /* Media icons */
 ul.report_media,
 ul.report_media li{
