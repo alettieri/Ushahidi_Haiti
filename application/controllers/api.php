@@ -816,7 +816,7 @@ class Api_Controller extends Controller {
 		$xml->startElement('incidents');
 		
 		//find incidents
-		$query = "SELECT i.id AS incidentid,i.incident_title AS incidenttitle," ."i.incident_description AS incidentdescription, i.incident_date AS " ."incidentdate, i.incident_mode AS incidentmode,i.incident_active AS " ."incidentactive, i.incident_verified AS incidentverified, l.id AS " ."locationid,l.location_name AS locationname,l.latitude AS " ."locationlatitude,l.longitude AS locationlongitude FROM incident AS i " ."INNER JOIN location as l on l.id = i.location_id ".
+		$query = "SELECT i.id AS incidentid,i.incident_title AS incidenttitle," ."i.incident_description AS incidentdescription, i.incident_date AS " ."incidentdate, i.incident_mode AS incidentmode,i.incident_custom_phone as incidentphone, i.incident_active AS " ."incidentactive, i.incident_verified AS incidentverified, l.id AS " ."locationid,l.location_name AS locationname,l.latitude AS " ."locationlatitude,l.longitude AS locationlongitude FROM incident AS i " ."INNER JOIN location as l on l.id = i.location_id ".
                     "$where $limit";
  
 		$items = $this->db->query($query);
